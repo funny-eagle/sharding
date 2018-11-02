@@ -1,4 +1,4 @@
-package com.redocon.mycatdemo.entity;
+package com.redocon.shardingjdbc.entity;
 
 public class OrderLibrary {
 

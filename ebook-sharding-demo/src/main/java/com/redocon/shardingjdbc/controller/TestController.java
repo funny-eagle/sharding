@@ -1,10 +1,8 @@
-package com.redocon.mycatdemo.controller;
+package com.redocon.shardingjdbc.controller;
 
-import com.redocon.mycatdemo.entity.*;
-import com.redocon.mycatdemo.mapper.*;
-import org.apache.ibatis.annotations.Param;
+import com.redocon.shardingjdbc.entity.*;
+import com.redocon.shardingjdbc.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,11 +33,9 @@ public class TestController {
     @Autowired
     private LibraryEbookMapper libraryEbookMapper;
 
-    @PostMapping("/addCustomer")
-    public void addCustomer() {
-        for (int i = 1; i <= 100; i++) {
-            customerMapper.insert("客户" + i);
-        }
+    @PostMapping("/addCustomer/{name}")
+    public void addCustomer(@PathVariable("name") String name) {
+        customerMapper.insert(name);
     }
 
     @PostMapping("/addLibrarys/{customerId}")
@@ -83,7 +79,7 @@ public class TestController {
     @PostMapping("/addLibraryEbook/{orderId}")
     public String addLibraryEbook(@PathVariable Integer orderId){
         // 根据orderId找到customerId
-        Order order = orderMapper.selectById(orderId);
+        // Order order = orderMapper.selectById(orderId);
 
         // 根据orderId找到libraryId
         List<OrderLibrary> orderLibraryList = orderLibraryMapper.selectByOrderId(orderId);
@@ -95,12 +91,10 @@ public class TestController {
         orderLibraryList.forEach(orderLibrary -> {
             orderEbookList.forEach(orderEbook -> {
                 // libraryEbookMapper.count(orderId, order.getCustomerId(), orderLibrary.getLibraryId(), orderEbook.getEbookId()) == 0
-                libraryEbookMapper.insert(orderId, order.getCustomerId(), orderLibrary.getLibraryId(), orderEbook.getEbookId(), 1);
+                // fixme: customerid 暂时写死
+                libraryEbookMapper.insert(orderId, 3, orderLibrary.getLibraryId(), orderEbook.getEbookId(), 1);
             });
         });
-
-
-
         return "add library ebook complete!";
     }
 

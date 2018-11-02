@@ -1,7 +1,8 @@
-package com.redocon.mycatdemo.entity;
+package com.redocon.shardingjdbc.entity;
 
-public class Customer {
+public class Library {
     private Integer id;
+    private Integer customerId;
     private String name;
 
     public Integer getId() {
@@ -10,6 +11,15 @@ public class Customer {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+
+    public Integer getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(Integer customerId) {
+        this.customerId = customerId;
     }
 
     public String getName() {

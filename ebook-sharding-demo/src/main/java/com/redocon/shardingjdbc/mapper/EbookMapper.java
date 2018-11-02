@@ -1,6 +1,6 @@
-package com.redocon.mycatdemo.mapper;
+package com.redocon.shardingjdbc.mapper;
 
-import com.redocon.mycatdemo.entity.Ebook;
+import com.redocon.shardingjdbc.entity.Ebook;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

@@ -1,4 +1,4 @@
-package com.redocon.mycatdemo;
+package com.redocon.shardingjdbc;
 
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;

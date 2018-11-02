@@ -1,6 +1,6 @@
-package com.redocon.mycatdemo.mapper;
+package com.redocon.shardingjdbc.mapper;
 
-import com.redocon.mycatdemo.entity.Order;
+import com.redocon.shardingjdbc.entity.Order;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
