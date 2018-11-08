@@ -1,4 +1,4 @@
-package com.redocon.mycatdemo.mapper;
+package com.redocon.ebook.mapper;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;

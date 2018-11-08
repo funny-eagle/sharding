@@ -1,4 +1,4 @@
-package com.redocon.mycatdemo.entity;
+package com.redocon.ebook.entity;
 
 public class Library {
     private Integer id;

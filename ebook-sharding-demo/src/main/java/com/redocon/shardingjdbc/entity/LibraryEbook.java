@@ -2,58 +2,58 @@ package com.redocon.shardingjdbc.entity;
 
 public class LibraryEbook {
 
-    private Integer id;
-    private Integer ebookId;
-    private Integer customerId;
-    private Integer libraryId;
-    private Integer orderId;
-    private Integer status;
+    private Long id;
+    private Long ebookId;
+    private Long customerId;
+    private Long libraryId;
+    private Long orderId;
+    private Long status;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Integer getEbookId() {
+    public Long getEbookId() {
         return ebookId;
     }
 
-    public void setEbookId(Integer ebookId) {
+    public void setEbookId(Long ebookId) {
         this.ebookId = ebookId;
     }
 
-    public Integer getCustomerId() {
+    public Long getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(Integer customerId) {
+    public void setCustomerId(Long customerId) {
         this.customerId = customerId;
     }
 
-    public Integer getLibraryId() {
+    public Long getLibraryId() {
         return libraryId;
     }
 
-    public void setLibraryId(Integer libraryId) {
+    public void setLibraryId(Long libraryId) {
         this.libraryId = libraryId;
     }
 
-    public Integer getOrderId() {
+    public Long getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(Integer orderId) {
+    public void setOrderId(Long orderId) {
         this.orderId = orderId;
     }
 
-    public Integer getStatus() {
+    public Long getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(Long status) {
         this.status = status;
     }
 }

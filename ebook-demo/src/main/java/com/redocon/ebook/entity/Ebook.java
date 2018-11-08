@@ -1,4 +1,4 @@
-package com.redocon.mycatdemo.entity;
+package com.redocon.ebook.entity;
 
 public class Ebook {
     private Integer id;

@@ -1,10 +1,7 @@
 package com.redocon.shardingjdbc.mapper;
 
 import com.redocon.shardingjdbc.entity.Ebook;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -18,4 +15,7 @@ public interface EbookMapper {
 
     @Select("select * from ebook")
     List<Ebook> select();
+
+    @Delete("truncate table ebook")
+    void truncate();
 }

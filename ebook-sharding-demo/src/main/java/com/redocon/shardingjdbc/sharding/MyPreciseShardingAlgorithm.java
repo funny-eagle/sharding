@@ -14,7 +14,8 @@ import java.util.Collection;
 public class MyPreciseShardingAlgorithm implements PreciseShardingAlgorithm<Long> {
 
     @Override
-    public String doSharding(Collection<String> availableTargetNames, PreciseShardingValue<Long> shardingValue) { for (String tableName : availableTargetNames) {
+    public String doSharding(Collection<String> availableTargetNames, PreciseShardingValue<Long> shardingValue) {
+        for (String tableName : availableTargetNames) {
             if (tableName.endsWith(shardingValue.getValue() % 4 + "")) {
                 return tableName;
             }

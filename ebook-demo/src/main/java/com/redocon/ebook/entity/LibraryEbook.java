@@ -1,11 +1,13 @@
-package com.redocon.mycatdemo.entity;
+package com.redocon.ebook.entity;
 
-public class OrderLibrary {
+public class LibraryEbook {
 
     private Integer id;
+    private Integer ebookId;
     private Integer customerId;
     private Integer libraryId;
     private Integer orderId;
+    private Integer status;
 
     public Integer getId() {
         return id;
@@ -13,6 +15,14 @@ public class OrderLibrary {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getEbookId() {
+        return ebookId;
+    }
+
+    public void setEbookId(Integer ebookId) {
+        this.ebookId = ebookId;
     }
 
     public Integer getCustomerId() {
@@ -37,5 +47,13 @@ public class OrderLibrary {
 
     public void setOrderId(Integer orderId) {
         this.orderId = orderId;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

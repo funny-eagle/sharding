@@ -1,14 +1,13 @@
-package com.redocon.mycatdemo.controller;
+package com.redocon.ebook.controller;
 
-import com.redocon.mycatdemo.entity.*;
-import com.redocon.mycatdemo.mapper.*;
-import org.apache.ibatis.annotations.Param;
+import com.redocon.ebook.entity.*;
+import com.redocon.ebook.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 @RestController
@@ -80,31 +79,27 @@ public class TestController {
         return "add order ebooks and libraries complete!";
     }
 
-    @PostMapping("/addLibraryEbook/{orderId}")
-    public String addLibraryEbook(@PathVariable Integer orderId){
+    //@PostMapping("/addLibraryEbook/{orderId}")
+    @PostConstruct
+    public String addLibraryEbook(){
+        Integer orderId = 3;
         // 根据orderId找到customerId
-        Order order = orderMapper.selectById(orderId);
-
+        // Order order = orderMapper.selectById(orderId);
         // 根据orderId找到libraryId
         List<OrderLibrary> orderLibraryList = orderLibraryMapper.selectByOrderId(orderId);
-
         // 根据orderId找ebookId
         List<OrderEbook> orderEbookList = orderEbookMapper.selectByOrderId(orderId);
-
         // 将所有的电子书配发到客户下所有的图书馆
         orderLibraryList.forEach(orderLibrary -> {
             orderEbookList.forEach(orderEbook -> {
                 // libraryEbookMapper.count(orderId, order.getCustomerId(), orderLibrary.getLibraryId(), orderEbook.getEbookId()) == 0
-                if(orderLibrary.getLibraryId() > 10){
-                    libraryEbookMapper.insert(orderId, order.getCustomerId(), orderLibrary.getLibraryId(), orderEbook.getEbookId(), 1);
+                // fixme: 避免插入重复数据，运行之前查一下，目前最大的library_id
+                if(orderLibrary.getLibraryId() > 25){
+                    // fixme:为了速度快，customerId先写死
+                    libraryEbookMapper.insert(orderId, 3, orderLibrary.getLibraryId(), orderEbook.getEbookId(), 1);
                 }
             });
         });
-
-
-
         return "add library ebook complete!";
     }
-
-
 }

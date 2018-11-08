@@ -1,9 +1,7 @@
-package com.redocon.mycatdemo.entity;
+package com.redocon.ebook.entity;
 
-public class Order {
-
+public class Customer {
     private Integer id;
-    private Integer customerId;
     private String name;
 
     public Integer getId() {
@@ -12,14 +10,6 @@ public class Order {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(Integer customerId) {
-        this.customerId = customerId;
     }
 
     public String getName() {

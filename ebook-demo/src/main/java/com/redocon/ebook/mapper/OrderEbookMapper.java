@@ -1,6 +1,6 @@
-package com.redocon.mycatdemo.mapper;
+package com.redocon.ebook.mapper;
 
-import com.redocon.mycatdemo.entity.OrderEbook;
+import com.redocon.ebook.entity.OrderEbook;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 

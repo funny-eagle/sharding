@@ -2,40 +2,40 @@ package com.redocon.shardingjdbc.entity;
 
 public class OrderLibrary {
 
-    private Integer id;
-    private Integer customerId;
-    private Integer libraryId;
-    private Integer orderId;
+    private Long id;
+    private Long customerId;
+    private Long libraryId;
+    private Long orderId;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Integer getCustomerId() {
+    public Long getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(Integer customerId) {
+    public void setCustomerId(Long customerId) {
         this.customerId = customerId;
     }
 
-    public Integer getLibraryId() {
+    public Long getLibraryId() {
         return libraryId;
     }
 
-    public void setLibraryId(Integer libraryId) {
+    public void setLibraryId(Long libraryId) {
         this.libraryId = libraryId;
     }
 
-    public Integer getOrderId() {
+    public Long getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(Integer orderId) {
+    public void setOrderId(Long orderId) {
         this.orderId = orderId;
     }
 }
