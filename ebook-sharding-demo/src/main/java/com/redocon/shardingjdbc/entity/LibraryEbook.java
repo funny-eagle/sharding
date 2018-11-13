@@ -7,7 +7,7 @@ public class LibraryEbook {
     private Long customerId;
     private Long libraryId;
     private Long orderId;
-    private Long status;
+    private Integer status;
 
     public Long getId() {
         return id;
@@ -49,11 +49,11 @@ public class LibraryEbook {
         this.orderId = orderId;
     }
 
-    public Long getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(Long status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 }

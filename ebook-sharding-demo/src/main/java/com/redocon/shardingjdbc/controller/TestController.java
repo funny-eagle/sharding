@@ -2,14 +2,20 @@ package com.redocon.shardingjdbc.controller;
 
 import com.redocon.shardingjdbc.entity.*;
 import com.redocon.shardingjdbc.mapper.*;
+import com.redocon.shardingjdbc.service.LibraryEbookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class TestController {
+
+    @Resource
+    private LibraryEbookService libraryEbookService;
 
     @Autowired
     private CustomerMapper customerMapper;
@@ -31,8 +37,10 @@ public class TestController {
 
     @Autowired
     private LibraryEbookMapper libraryEbookMapper;
+    
+    @Resource
+    private LibraryEbookAllMapper libraryEbookAllMapper;
 
-    @PostConstruct
     public String autoRun(){
         // 清除记录
         clear();
@@ -157,12 +165,21 @@ public class TestController {
             List<OrderEbook> orderEbookList = orderEbookMapper.selectByOrderId(order.getId());
 
             System.out.println("配发电子书到图书馆");
+
+            List<LibraryEbook> libraryEbookList = new ArrayList<>();
             // 将所有的电子书配发到客户下所有的图书馆
             orderLibraryList.forEach(orderLibrary -> {
                 orderEbookList.forEach(orderEbook -> {
-                    libraryEbookMapper.insert(order.getId(), order.getCustomerId(), orderLibrary.getLibraryId(), orderEbook.getEbookId(), 1);
+                    LibraryEbook libraryEbook = new LibraryEbook();
+                    libraryEbook.setOrderId(order.getId());
+                    libraryEbook.setCustomerId(order.getCustomerId());
+                    libraryEbook.setLibraryId(orderLibrary.getLibraryId());
+                    libraryEbook.setEbookId(orderEbook.getEbookId());
+                    libraryEbook.setStatus(1);
+                    libraryEbookList.add(libraryEbook);
                 });
             });
+            libraryEbookMapper.insertBatch(libraryEbookList);
         });
         return "配发电子书完成！";
     }
@@ -173,4 +190,30 @@ public class TestController {
         System.out.println("hello");
         return orderMapper.selectById(orderId);
     }
+
+    @GetMapping("/queryByOrderId/{orderId}/{pageNum}/{sizePerPage}")
+    List<Map> queryByOrderId(@PathVariable("orderId") Integer orderId, @PathVariable("pageNum") Integer pageNum, @PathVariable("sizePerPage") Integer sizePerPage){
+        return libraryEbookService.queryByOrderId(orderId, (pageNum-1) * sizePerPage, sizePerPage);
+    }
+
+    @GetMapping("/queryByLibraryId/{libraryId}/{pageNum}/{sizePerPage}")
+    List<Map> queryByLibraryId(@PathVariable("libraryId") Integer libraryId, @PathVariable("pageNum") Integer pageNum, @PathVariable("sizePerPage") Integer sizePerPage){
+        return libraryEbookService.queryByLibraryId(libraryId, (pageNum-1) * sizePerPage, sizePerPage);
+    }
+
+    @GetMapping("/queryByCustomerId/{customerId}/{pageNum}/{sizePerPage}")
+    List<Map> queryByCustomerId(@PathVariable("customerId") Integer customerId, @PathVariable("pageNum") Integer pageNum, @PathVariable("sizePerPage") Integer sizePerPage){
+        return libraryEbookService.queryByCustomerId(customerId, (pageNum-1) * sizePerPage, sizePerPage);
+    }
+    
+    @PostMapping("/batchInsertIntoLibraryEbookAll")
+    void insertSlect(){
+
+        for (int i = 1; i <= 6666; i++) {
+            List<LibraryEbook> list = libraryEbookAllMapper.selectSharding(i*1000, 1000);
+            libraryEbookAllMapper.insertBatch(list);
+        }
+
+    }
+    
 }

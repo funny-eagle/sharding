@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.PostConstruct;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -79,8 +81,8 @@ public class TestController {
         return "add order ebooks and libraries complete!";
     }
 
-    //@PostMapping("/addLibraryEbook/{orderId}")
-    @PostConstruct
+    @PostMapping("/addLibraryEbook/{orderId}")
+    //@PostConstruct
     public String addLibraryEbook(){
         Integer orderId = 3;
         // 根据orderId找到customerId
@@ -89,17 +91,65 @@ public class TestController {
         List<OrderLibrary> orderLibraryList = orderLibraryMapper.selectByOrderId(orderId);
         // 根据orderId找ebookId
         List<OrderEbook> orderEbookList = orderEbookMapper.selectByOrderId(orderId);
+
+        List<LibraryEbook> libraryEbookList = new ArrayList<>();
         // 将所有的电子书配发到客户下所有的图书馆
         orderLibraryList.forEach(orderLibrary -> {
             orderEbookList.forEach(orderEbook -> {
                 // libraryEbookMapper.count(orderId, order.getCustomerId(), orderLibrary.getLibraryId(), orderEbook.getEbookId()) == 0
                 // fixme: 避免插入重复数据，运行之前查一下，目前最大的library_id
                 if(orderLibrary.getLibraryId() > 25){
-                    // fixme:为了速度快，customerId先写死
-                    libraryEbookMapper.insert(orderId, 3, orderLibrary.getLibraryId(), orderEbook.getEbookId(), 1);
+                    LibraryEbook libraryEbook = new LibraryEbook();
+                    libraryEbook.setOrderId(orderId);
+                    libraryEbook.setCustomerId(3);
+                    libraryEbook.setLibraryId(orderLibrary.getLibraryId());
+                    libraryEbook.setEbookId(orderEbook.getEbookId());
+                    libraryEbook.setStatus(1);
+                    libraryEbookList.add(libraryEbook);
                 }
             });
         });
+        long start = System.currentTimeMillis();
+        System.out.println("insert batch start : " + start);
+        libraryEbookMapper.insertBatch(libraryEbookList);
+        long end = System.currentTimeMillis();
+        System.out.println("insert batch end : " + end);
+        System.out.println("insert batch total millis: " + (end - start));
+        return "add library ebook complete!";
+    }
+
+    @PostMapping("/testInsertBatchLibraryEbook")
+    public String testInsertBatchLibraryEbook(){
+        long start = System.currentTimeMillis();
+        System.out.println("insert batch start : " + start);
+        List<LibraryEbook> libraryEbookList = new ArrayList<>();
+        for (int i = 0; i < 10000; i++) {
+            LibraryEbook libraryEbook = new LibraryEbook();
+            libraryEbook.setOrderId(99999);
+            libraryEbook.setCustomerId(3);
+            libraryEbook.setLibraryId(i);
+            libraryEbook.setEbookId(i);
+            libraryEbook.setStatus(999);
+            libraryEbookList.add(libraryEbook);
+        }
+
+        libraryEbookMapper.insertBatch(libraryEbookList);
+        long end = System.currentTimeMillis();
+        System.out.println("insert batch end : " + end);
+        System.out.println("insert batch total millis: " + (end - start));
+        return "add library ebook complete!";
+    }
+
+    @PostMapping("/testInsertLibraryEbook")
+    public String testInsertLibraryEbook(){
+        long start = System.currentTimeMillis();
+        System.out.println("insert start : " + start);
+        for (int i = 0; i < 1000; i++) {
+            libraryEbookMapper.insert(99999, 3, i, i, 999);
+        }
+        long end = System.currentTimeMillis();
+        System.out.println("insert end : " + end);
+        System.out.println("insert total millis: " + (end - start));
         return "add library ebook complete!";
     }
 }
